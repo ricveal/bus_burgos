@@ -40,24 +40,24 @@ def test_fetching_next_bus(mocker):
         async with aiohttp.ClientSession() as client:
             result = await bus_burgos.get_bus_stop(client, "200")
             assert result.get_next_bus("02").destination == "Estacion Tren"
-            assert result.get_next_bus("02").seconds == 1200
+            assert result.get_next_bus("02").seconds == "600"
     loop = asyncio.get_event_loop()
     mockValue = [
         bus_burgos.Estimation.from_json({
             "destination": "Plaza Vega - Catedral",
-            "seconds": 3320,
+            "seconds": "3320",
             "meters": 0,
             "vehicle": 0
         }),
         bus_burgos.Estimation.from_json({
             "destination": "Estacion Tren",
-            "seconds": 1200,
+            "seconds": "600",
             "meters": 0,
             "vehicle": 0
         }),
         bus_burgos.Estimation.from_json({
             "destination": "Plaza España",
-            "seconds": 2000,
+            "seconds": "2000",
             "meters": 0,
             "vehicle": 0
         }),

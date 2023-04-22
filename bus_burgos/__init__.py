@@ -72,7 +72,7 @@ class BusStopWithEstimations():
 
     def get_next_bus(self, line: str):
         estimations = self.get_times_by_line(line)
-        return sorted(estimations, key=lambda x: x.seconds, reverse=False)[0]
+        return sorted(estimations, key=lambda x: int(x.seconds), reverse=False)[0]
 
     @staticmethod
     def from_json(item):
