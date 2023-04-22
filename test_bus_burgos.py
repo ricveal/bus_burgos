@@ -35,10 +35,32 @@ def test_fetching_info_from_one_bus_stop():
     loop.run_until_complete(test())
 
 
-def test_fetching_next_bus():
+def test_fetching_next_bus(mocker):
     async def test():
         async with aiohttp.ClientSession() as client:
             result = await bus_burgos.get_bus_stop(client, "200")
             assert result.get_next_bus("02").destination == "Estacion Tren"
+            assert result.get_next_bus("02").seconds == 1200
     loop = asyncio.get_event_loop()
+    mockValue = [
+        bus_burgos.Estimation.from_json({
+            "destination": "Plaza Vega - Catedral",
+            "seconds": 3320,
+            "meters": 0,
+            "vehicle": 0
+        }),
+        bus_burgos.Estimation.from_json({
+            "destination": "Estacion Tren",
+            "seconds": 1200,
+            "meters": 0,
+            "vehicle": 0
+        }),
+        bus_burgos.Estimation.from_json({
+            "destination": "Plaza España",
+            "seconds": 2000,
+            "meters": 0,
+            "vehicle": 0
+        }),
+    ]
+    mocker.patch("bus_burgos.BusStopWithEstimations.get_times_by_line", return_value=mockValue)
     loop.run_until_complete(test())
