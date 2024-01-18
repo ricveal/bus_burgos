@@ -9,7 +9,7 @@ def test_fetching_all_bus_stops():
     async def test():
         async with aiohttp.ClientSession() as client:
             result = await bus_burgos.get_all_bus_stops(client)
-            assert len(result) == 490
+            assert len(result) == 491
     loop = asyncio.get_event_loop()
     loop.run_until_complete(test())
 
