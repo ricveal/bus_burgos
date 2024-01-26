@@ -17,24 +17,19 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    env:
+      POETRY_VERSION: 1.5.0
     steps:
       - uses: actions/checkout@v4
-      - name: Install Python
-        uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+      - name: Setup poetry
+        uses: abatilo/actions-poetry@v3
         with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          poetry-version: ${{ env.POETRY_VERSION }}
       - name: Install the project dependencies
         run: poetry install
-      - name: Run the automated tests (for example)
+      - name: Run the automated tests
         run: poetry run pytest -v
