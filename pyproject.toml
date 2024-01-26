@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bus_burgos"
-version = "0.0.0"
+version = "0.1.2"
 description = "Asynchronous Python client for getting bus stops information in Burgos"
 authors = ["ricveal <ricveal@gmail.com>"]
 license = "MIT"
