@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Setup poetry
-        uses: abatilo/actions-poetry@v3
+        uses: abatilo/actions-poetry@v4
         with:
           poetry-version: ${{ env.POETRY_VERSION }}
       - name: Install the project dependencies
